@@ -32,7 +32,7 @@ interface Message {
 }
 
 const randomGuid = Math.random().toString();
-
+const user = `user-${randomGuid}`;
 export default function ChatRoom() {
   const { room } = useLocalSearchParams();
 
@@ -40,8 +40,10 @@ export default function ChatRoom() {
   const [inputMessage, setInputMessage] = useState("");
 
   useEffect(() => {
+    // Join the room
+    socket.emit("joinRoom", { channel: room, user });
     const onMessage = (msg: any) => {
-      if (msg.room === room && msg.message.from !== `user-${randomGuid}`) {
+      if (msg.room === room && msg.message.from !== user) {
         setMessages((prevMessages) => [...prevMessages, msg.message]);
       }
     };

@@ -11,10 +11,6 @@ import { useRouter } from "expo-router";
 // https://chatroom-websocket-dyo.azurewebsites.net/
 export const socket = io("http://localhost:3000");
 
-socket.on("connect", () => {
-  console.log("connected");
-});
-
 export default function HomeScreen() {
   const router = useRouter();
 
@@ -38,30 +34,20 @@ export default function HomeScreen() {
           title="Connect to Room 1"
           onPress={() => {
             router.push({
-              pathname: "/chatRooms/[room]",
+              pathname: "/waitingRooms/[room]",
               params: { room: "1" },
             });
           }}
         />
-        <Button
+        {/* <Button
           title="Connect to Room 2"
           onPress={() => {
             router.push({
-              pathname: "/chatRooms/[room]",
+              pathname: "/waitingRooms/[room]",
               params: { room: "2" },
             });
           }}
-        />
-
-        <ThemedText>
-          Edit{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
-          to see changes. Press{" "}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: "cmd + d", android: "cmd + m" })}
-          </ThemedText>{" "}
-          to open developer tools.
-        </ThemedText>
+        /> */}
       </ThemedView>
     </ParallaxScrollView>
   );
