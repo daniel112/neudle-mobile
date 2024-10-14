@@ -1,17 +1,10 @@
-import {
-  StyleSheet,
-  FlatList,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  TextInput,
-  Platform,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
-import { IconButton } from "react-native-paper";
+import { Button, Card, Text } from "react-native-paper";
 import { socket } from "../(tabs)";
+import { useIsMobileWidth } from "@/hooks/useIsMobileWidth";
+import { CircularTimer } from "@/components/CircularTimer";
 
 socket.on("connect", () => {
   console.log("connected");
@@ -36,8 +29,11 @@ interface Question {
 
 export default function TriviaRoom() {
   const { room } = useLocalSearchParams();
-
   const [question, setQuestion] = useState<Question>();
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  // const theme = useTheme();
+  const isMobileWidth = useIsMobileWidth();
+  const styles = getDynamicStyles(isMobileWidth);
 
   useEffect(() => {
     console.log("useEffect");
@@ -52,17 +48,73 @@ export default function TriviaRoom() {
     return () => {};
   }, []);
 
+  const handleAnswerSelect = (key: string) => {
+    setSelectedAnswer(key);
+    // Here you would typically emit the answer to the server
+    // socket.emit("submitAnswer", { room, answer: key });
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>{question?.question}</Text>
-      <Text>{JSON.stringify(question?.options)}</Text>
-      <Text>{question?.answer}</Text>
-    </View>
+    <ScrollView contentContainerStyle={styles.contentContainer}>
+      <View style={styles.progressContainer}>
+        <CircularTimer startValue={10} value={4} />
+      </View>
+
+      <Card style={styles.questionCard}>
+        <Card.Content>
+          <Text variant="titleLarge" style={styles.questionText}>
+            {question?.question}
+          </Text>
+        </Card.Content>
+      </Card>
+      <View style={styles.optionsContainer}>
+        {question?.options &&
+          Object.entries(question.options).map(([key, value]) => (
+            <Button
+              key={key}
+              mode={selectedAnswer === key ? "contained" : "outlined"}
+              onPress={() => handleAnswerSelect(key)}
+              style={styles.optionButton}
+              labelStyle={styles.optionText}
+            >
+              {value}
+            </Button>
+          ))}
+      </View>
+    </ScrollView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});
+
+const getDynamicStyles = (isMobileWidth: boolean) => {
+  return StyleSheet.create({
+    progressContainer: {
+      marginBottom: 20,
+      // backgroundColor: "red",
+      alignItems: "flex-end",
+    },
+    contentContainer: {
+      flexGrow: 1,
+      padding: 16,
+      alignSelf: "center",
+      justifyContent: "center",
+      width: isMobileWidth ? "100%" : "70%",
+    },
+    questionCard: {
+      marginBottom: 20,
+      height: 200,
+      justifyContent: "center",
+    },
+    questionText: {
+      textAlign: "center",
+    },
+    optionsContainer: {
+      marginTop: 10,
+    },
+    optionButton: {
+      marginBottom: 10,
+    },
+    optionText: {
+      fontSize: 16,
+    },
+  });
+};

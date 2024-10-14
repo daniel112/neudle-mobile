@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, Button } from "react-native";
+import { Image, StyleSheet, Button } from "react-native";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -39,15 +39,6 @@ export default function HomeScreen() {
             });
           }}
         />
-        {/* <Button
-          title="Connect to Room 2"
-          onPress={() => {
-            router.push({
-              pathname: "/waitingRooms/[room]",
-              params: { room: "2" },
-            });
-          }}
-        /> */}
       </ThemedView>
     </ParallaxScrollView>
   );

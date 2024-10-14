@@ -39,14 +39,6 @@ export default function ChatRoom() {
       setConnectedUsers(users);
     });
 
-    // listen for game start, triggered when the room leader starts the game
-    socket.on("gameStarting", () => {
-      router.push({
-        pathname: "/gameRoom/triviaRoom",
-        params: { room },
-      });
-    });
-
     // Listen for updates to the user list
     socket.on("userJoined", (users) => {
       setConnectedUsers(users);
@@ -56,8 +48,24 @@ export default function ChatRoom() {
     return () => {
       socket.off("userJoined");
       socket.off("userLeft");
+      socket.emit("leaveRoom", { channel: room });
     };
   }, []);
+  useEffect(() => {
+    // listen for game start, triggered when the room leader starts the game
+    const handleGameStarting = () => {
+      router.push({
+        pathname: "/gameRoom/triviaRoom",
+        params: { room },
+      });
+    };
+    socket.off("gameStarting", handleGameStarting);
+    socket.on("gameStarting", handleGameStarting);
+
+    return () => {
+      socket.off("gameStarting", handleGameStarting);
+    };
+  }, [room]);
 
   const startGame = () => {
     // Room leader can start the game
@@ -65,16 +73,10 @@ export default function ChatRoom() {
       if (!success) {
         setModalVisible(true);
         setModalMessage(message || "Unknown error");
-        return;
       }
-
-      router.push({
-        pathname: "/gameRoom/triviaRoom",
-        params: { room },
-      });
     });
   };
-  console.log({ connectedUsers });
+
   return (
     <View style={styles.container}>
       <Portal>
