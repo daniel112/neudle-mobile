@@ -22,7 +22,7 @@ export const CircularTimer = ({ value, startValue }: CircularTimerProps) => {
   const progressValue = useSharedValue(value);
 
   useEffect(() => {
-    progressValue.value = withTiming(value, { duration: 1000 });
+    progressValue.value = withTiming(value, { duration: 500 });
   }, []);
 
   const animatedProps = useAnimatedProps(() => {

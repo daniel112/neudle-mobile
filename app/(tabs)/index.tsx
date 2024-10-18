@@ -4,12 +4,7 @@ import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { io } from "socket.io-client";
 import { useRouter } from "expo-router";
-
-// https://chatserver-b2ardddcb6dsevbt.westus-01.azurewebsites.net/
-// https://chatroom-websocket-dyo.azurewebsites.net/
-export const socket = io("http://localhost:3000");
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -29,7 +24,7 @@ export default function HomeScreen() {
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle">Step 1: Join a room</ThemedText>
         <Button
           title="Connect to Room 1"
           onPress={() => {

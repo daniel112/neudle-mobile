@@ -9,18 +9,10 @@ import {
   Title,
   Dialog,
 } from "react-native-paper";
-import { socket } from "../(tabs)";
-
-socket.on("connect", () => {
-  console.log("connected");
-});
-
-socket.on("disconnect", () => {
-  console.log("disconnect");
-});
+import { socket } from "@/app/gameRoom/socket";
 
 const randomGuid = Math.random().toString();
-const user = `user-${randomGuid}`;
+export const user = `user-${randomGuid}`;
 
 export default function ChatRoom() {
   const { room } = useLocalSearchParams();
@@ -48,6 +40,7 @@ export default function ChatRoom() {
     return () => {
       socket.off("userJoined");
       socket.off("userLeft");
+      socket.off("joinRoom");
       socket.emit("leaveRoom", { channel: room });
     };
   }, []);
