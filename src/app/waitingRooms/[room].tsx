@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, View, ScrollView } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import { useState, useEffect } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
@@ -43,7 +43,7 @@ export default function ChatRoom() {
       socket.off("joinRoom");
       socket.emit("leaveRoom", { channel: room });
     };
-  }, []);
+  }, [room]);
   useEffect(() => {
     // listen for game start, triggered when the room leader starts the game
     const handleGameStarting = () => {
@@ -58,7 +58,7 @@ export default function ChatRoom() {
     return () => {
       socket.off("gameStarting", handleGameStarting);
     };
-  }, [room]);
+  }, [room, router]);
 
   const startGame = () => {
     // Room leader can start the game

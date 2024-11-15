@@ -65,7 +65,7 @@ export const useCurrentGameState = ({
       socket.off("timesUp");
       socket.off("gameEnded");
     };
-  }, [room, fetchNewQuestion]);
+  }, [room, fetchNewQuestion, onGameEnd]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

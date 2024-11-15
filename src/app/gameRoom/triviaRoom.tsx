@@ -61,7 +61,7 @@ export default function TriviaRoom() {
         fetchNewQuestion();
       }, 500);
     }
-  }, [timerValue]);
+  }, [fetchNewQuestion, question, room, selectedAnswer, timerValue]);
 
   const handleAnswerSelect = (key: string) => {
     setSelectedAnswer(key);

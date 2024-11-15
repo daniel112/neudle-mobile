@@ -15,7 +15,7 @@ export const CircularProgressBar = ({ progress }: { progress: number }) => {
 
   useEffect(() => {
     progressValue.value = withTiming(progress, { duration: 1000 });
-  }, [progress]);
+  }, [progress, progressValue]);
 
   const animatedProps = useAnimatedProps(() => {
     const strokeDashoffset =

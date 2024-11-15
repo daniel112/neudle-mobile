@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import Svg, { Circle, Text } from "react-native-svg";
 import Animated, {
@@ -23,7 +23,7 @@ export const CircularTimer = ({ value, startValue }: CircularTimerProps) => {
 
   useEffect(() => {
     progressValue.value = withTiming(value, { duration: 500 });
-  }, []);
+  }, [progressValue, value]);
 
   const animatedProps = useAnimatedProps(() => {
     const strokeDashoffset =
