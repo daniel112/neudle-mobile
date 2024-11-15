@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const setGameState = async (
   gameState: GameState,
-  room: string
+  room: string,
 ): Promise<boolean> => {
   try {
     const jsonValue = JSON.stringify(gameState);
