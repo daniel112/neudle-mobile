@@ -1,11 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet, Image, Platform } from "react-native";
 
-import { Collapsible } from "@/components/Collapsible";
-import { ExternalLink } from "@/components/ExternalLink";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import { Collapsible } from "@/shared/components/Collapsible";
+import { ExternalLink } from "@/shared/components/ExternalLink";
+import ParallaxScrollView from "@/shared/components/ParallaxScrollView";
+import { ThemedText } from "@/shared/components/ThemedText";
+import { ThemedView } from "@/shared/components/ThemedView";
 
 // NOTE: A route file is defined by exporting a React component as the default value.
 

@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { ActivityIndicator, Button, Card, Text } from "react-native-paper";
 import { socket } from "@/app/gameRoom/socket";
-import { useIsMobileWidth } from "@/hooks/useIsMobileWidth";
-import { CircularTimer } from "@/components/CircularTimer";
+import { useIsMobileWidth } from "@/shared/hooks/useIsMobileWidth";
+import { CircularTimer } from "@/shared/components/CircularTimer";
 import {
   GameState,
   useCurrentGameState,
