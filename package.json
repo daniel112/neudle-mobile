@@ -65,7 +65,7 @@
   "private": true,
   "lint-staged": {
     "*.{ts,tsx}": [
-      "tsc --noEmit",
+      "bash -c tsc --noEmit",
       "eslint --cache --fix"
     ],
     "*.{md,ts,tsx}": "prettier --write"

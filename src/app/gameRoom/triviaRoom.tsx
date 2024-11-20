@@ -9,8 +9,8 @@ import {
   GameState,
   useCurrentGameState,
 } from "@/app/gameRoom/hooks/useCurrentGameState";
-import { user } from "@/app/waitingRooms/[room]";
 import { setGameState } from "@/app/data/setGameState";
+import { user } from "@/screens/TriviaWaitingRoomScreen";
 
 socket.on("connect", () => {
   console.log("connected");
