@@ -1,10 +1,14 @@
-import { getGameState } from "@/app/data/getGameState";
-import { GameState } from "@/app/gameRoom/hooks/useCurrentGameState";
-import { Question } from "@/app/gameRoom/types";
+import { getGameState } from "@/features/trivia/data/getGameState";
+import { GameState } from "@/features/trivia/hooks/useCurrentGameState";
+import { Question } from "@/features/trivia/types";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 import { Card, Text, Title } from "react-native-paper";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 interface UserAnswer {
   user: string;
@@ -23,7 +27,6 @@ const convertToResults = (gameState: GameState): ResultItem[] => {
   const results: ResultItem[] = [];
   const players = gameState.players;
   const submittedAnswers = gameState.submittedAnswers;
-  console.log({ submittedAnswers, players });
   gameState.questionBank.map((question) => {
     const item: ResultItem = {
       question,
@@ -32,9 +35,9 @@ const convertToResults = (gameState: GameState): ResultItem[] => {
 
         return {
           user: player.name,
-          answer: `${letterAnswer.toUpperCase()}: ${
-            question.options[letterAnswer]
-          }`,
+          answer: letterAnswer
+            ? `${letterAnswer.toUpperCase()}: ${question.options[letterAnswer]}`
+            : "No Answer",
         };
       }),
     };
@@ -43,7 +46,8 @@ const convertToResults = (gameState: GameState): ResultItem[] => {
   return results;
 };
 
-export default function ResultsRoom() {
+export const TriviaResultScreen = () => {
+  const insets = useSafeAreaInsets();
   const { room } = useLocalSearchParams();
   const [results, setResults] = useState<ResultItem[]>([]);
   useEffect(() => {
@@ -57,7 +61,14 @@ export default function ResultsRoom() {
   }, [room]);
 
   return (
-    <View>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        paddingTop: insets.top,
+        gap: 20,
+        paddingHorizontal: 10,
+      }}
+    >
       {results.map((result, index) => {
         return (
           <Card key={index}>
@@ -79,6 +90,6 @@ export default function ResultsRoom() {
           </Card>
         );
       })}
-    </View>
+    </SafeAreaView>
   );
-}
+};

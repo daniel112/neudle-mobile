@@ -1,4 +1,4 @@
-import { GameState } from "@/app/gameRoom/hooks/useCurrentGameState";
+import { GameState } from "@/features/trivia/hooks/useCurrentGameState";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const getGameState = async (room: string): Promise<GameState | null> => {

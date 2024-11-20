@@ -9,7 +9,7 @@ import {
   Title,
   Dialog,
 } from "react-native-paper";
-import { socket } from "@/app/gameRoom/socket";
+import { socket } from "@/features/trivia/socket";
 
 const randomGuid = Math.random().toString();
 export const user = `user-${randomGuid}`;

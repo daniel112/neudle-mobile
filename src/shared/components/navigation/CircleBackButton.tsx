@@ -1,8 +1,9 @@
 import { useNavigationBack } from "@/shared/hooks/useNavigationBack";
 import React, { FC } from "react";
-import { StyleProp, StyleSheet, ViewStyle } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { IconButton, useTheme } from "react-native-paper";
 import type { HeaderBackButtonProps } from "@react-navigation/elements";
+import { isBrowser } from "@/shared/utils/isBrowser";
 
 interface CircleBackButtonProps extends HeaderBackButtonProps {
   onPress?: () => void;
@@ -14,11 +15,14 @@ interface CircleBackButtonProps extends HeaderBackButtonProps {
  */
 export const CircleBackButton: FC<CircleBackButtonProps> = ({
   onPress,
-  size = 30,
+  size = 20,
   style,
 }) => {
   const theme = useTheme();
   const defaultOnPress = useNavigationBack();
+
+  if (isBrowser) return null;
+
   return (
     <IconButton
       onPress={onPress || defaultOnPress}
@@ -26,15 +30,7 @@ export const CircleBackButton: FC<CircleBackButtonProps> = ({
       iconColor={theme.colors.primary}
       containerColor={theme.colors.onPrimaryContainer}
       size={size}
-      style={[styles.defaultBackButton, style]}
+      style={[style]}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  defaultBackButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 0,
-  },
-});

@@ -1,4 +1,4 @@
-import { TriviaWaitingRoomScreen } from "@/screens/TriviaWaitingRoomScreen";
+import { TriviaWaitingRoomScreen } from "@/screens/trivia/TriviaWaitingRoomScreen";
 
 /**
  * route: /waitingRoom/[room]

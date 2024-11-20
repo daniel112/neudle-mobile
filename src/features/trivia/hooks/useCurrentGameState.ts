@@ -1,5 +1,5 @@
-import { socket } from "@/app/gameRoom/socket";
-import type { Question } from "@/app/gameRoom/types";
+import { socket } from "@/features/trivia/socket";
+import type { Question } from "@/features/trivia/types";
 import { useEffect, useState, useCallback } from "react";
 
 interface Player {
@@ -65,7 +65,8 @@ export const useCurrentGameState = ({
       socket.off("timesUp");
       socket.off("gameEnded");
     };
-  }, [room, fetchNewQuestion, onGameEnd]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [room, fetchNewQuestion]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

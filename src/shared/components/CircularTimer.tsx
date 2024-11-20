@@ -26,6 +26,9 @@ export const CircularTimer = ({ value, startValue }: CircularTimerProps) => {
   }, [progressValue, value]);
 
   const animatedProps = useAnimatedProps(() => {
+    if (startValue === 0) {
+      return { strokeDashoffset: 0 };
+    }
     const strokeDashoffset =
       circumference + (value / startValue) * circumference;
     return {
