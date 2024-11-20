@@ -1,5 +1,5 @@
 import { TriviaScreen } from "@/screens/TriviaScreen";
 
-export default function TriviaRoute() {
+export default function TriviaTab() {
   return <TriviaScreen />;
 }

@@ -9,7 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/shared/hooks/useColorScheme";
+import { useColorScheme } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import { CircleBackButton } from "@/shared/components/navigation/CircleBackButton";
 // NOTE: ROOT COMPONENT

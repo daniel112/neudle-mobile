@@ -1,9 +1,8 @@
-import { Image, StyleSheet, Button } from "react-native";
+import { Image, StyleSheet, Button, View } from "react-native";
 
 import ParallaxScrollView from "@/shared/components/ParallaxScrollView";
-import { ThemedText } from "@/shared/components/ThemedText";
-import { ThemedView } from "@/shared/components/ThemedView";
 import { useRouter } from "expo-router";
+import { Text } from "react-native-paper";
 
 export const TriviaScreen: React.FC = () => {
   const router = useRouter();
@@ -18,11 +17,13 @@ export const TriviaScreen: React.FC = () => {
         />
       }
     >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Trivia</ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Join a room</ThemedText>
+      <View style={styles.titleContainer}>
+        <Text variant="headlineLarge" style={{ fontWeight: "bold" }}>
+          Trivia
+        </Text>
+      </View>
+      <View style={styles.stepContainer}>
+        <Text variant="bodyLarge">Join room to play live trivia</Text>
         <Button
           title="Connect to Room 1"
           onPress={() => {
@@ -32,7 +33,7 @@ export const TriviaScreen: React.FC = () => {
             });
           }}
         />
-      </ThemedView>
+      </View>
     </ParallaxScrollView>
   );
 };
