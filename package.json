@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "clean": "expo prebuild --clean",
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -64,7 +64,7 @@
   "private": true,
   "lint-staged": {
     "*.{ts,tsx}": [
-      "bash -c tsc --noEmit",
+      "tsc --noEmit",
       "eslint --cache --fix"
     ],
     "*.{md,ts,tsx}": "prettier --write"
