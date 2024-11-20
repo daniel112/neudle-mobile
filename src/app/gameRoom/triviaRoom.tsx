@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { ActivityIndicator, Button, Card, Text } from "react-native-paper";
 import { socket } from "@/app/gameRoom/socket";
-import { useIsMobileWidth } from "@/hooks/useIsMobileWidth";
-import { CircularTimer } from "@/components/CircularTimer";
+import { useIsMobileWidth } from "@/shared/hooks/useIsMobileWidth";
+import { CircularTimer } from "@/shared/components/CircularTimer";
 import {
   GameState,
   useCurrentGameState,
 } from "@/app/gameRoom/hooks/useCurrentGameState";
-import { user } from "@/app/waitingRooms/[room]";
 import { setGameState } from "@/app/data/setGameState";
+import { user } from "@/screens/TriviaWaitingRoomScreen";
 
 socket.on("connect", () => {
   console.log("connected");

@@ -9,8 +9,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
+import { useColorScheme } from "react-native";
 import { PaperProvider } from "react-native-paper";
+import { CircleBackButton } from "@/shared/components/navigation/CircleBackButton";
 // NOTE: ROOT COMPONENT
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -35,9 +36,15 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <PaperProvider>
-        <Stack>
+        <Stack
+          screenOptions={{
+            animation: "slide_from_right",
+            headerLeft: CircleBackButton,
+            headerTransparent: true, // Makes the header fully transparent
+            headerTitle: "", // Removes the title
+          }}
+        >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
         </Stack>
       </PaperProvider>
     </ThemeProvider>
