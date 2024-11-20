@@ -1,5 +1,8 @@
 import { TriviaWaitingRoomScreen } from "@/screens/TriviaWaitingRoomScreen";
 
-export default function Page() {
+/**
+ * route: /waitingRoom/[room]
+ */
+export default function WaitingRoomRoute() {
   return <TriviaWaitingRoomScreen />;
 }
