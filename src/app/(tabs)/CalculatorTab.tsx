@@ -17,6 +17,7 @@ export default function CalculatorTab() {
 const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
+    paddingHorizontal: 16,
     backgroundColor: "transparent",
   },
 });

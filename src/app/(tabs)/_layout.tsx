@@ -33,7 +33,7 @@ export default function TabLayout() {
           title: "Mortgage Calculator",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
+              name={focused ? "calculator" : "calculator-outline"}
               color={color}
             />
           ),
