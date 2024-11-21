@@ -1,10 +1,5 @@
 import { FC, useState } from "react";
-import {
-  Keyboard,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import React from "react";
 import { InterestRatePreview } from "@/features/mortgageCalculator/InterestRatePreview";
@@ -22,49 +17,43 @@ export const MortgageCalculatorScreen: FC = () => {
     style: "currency",
     currency: "USD",
   });
-
   return (
-    <TouchableWithoutFeedback
-      style={styles.container}
-      onPress={Keyboard.dismiss}
-    >
-      <View style={styles.container}>
-        <InterestRatePreview />
-        <Calculator
-          onResult={(result) => {
-            setCalculateResult(result);
-          }}
-        />
-        {calculateResult && (
-          <Card style={{ marginBottom: 16 }}>
-            <DataTable>
-              <DataTable.Header>
-                <DataTable.Title>Category</DataTable.Title>
-                <DataTable.Title>Cost</DataTable.Title>
-              </DataTable.Header>
-              <DataTable.Row>
-                <DataTable.Cell>Monthly Payments</DataTable.Cell>
-                <DataTable.Cell>
-                  {dollarFormat.format(calculateResult.monthlyPayments)}
-                </DataTable.Cell>
-              </DataTable.Row>
-              <DataTable.Row>
-                <DataTable.Cell>Total Interest Paid</DataTable.Cell>
-                <DataTable.Cell>
-                  {dollarFormat.format(calculateResult.totalInterest)}
-                </DataTable.Cell>
-              </DataTable.Row>
-              <DataTable.Row>
-                <DataTable.Cell>Total Payments</DataTable.Cell>
-                <DataTable.Cell>
-                  {dollarFormat.format(calculateResult.totalPayment)}
-                </DataTable.Cell>
-              </DataTable.Row>
-            </DataTable>
-          </Card>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+    <View style={styles.container}>
+      <InterestRatePreview />
+      <Calculator
+        onResult={(result) => {
+          setCalculateResult(result);
+        }}
+      />
+      {calculateResult && (
+        <Card style={{ marginBottom: 16 }}>
+          <DataTable>
+            <DataTable.Header>
+              <DataTable.Title>Category</DataTable.Title>
+              <DataTable.Title numeric>Cost</DataTable.Title>
+            </DataTable.Header>
+            <DataTable.Row>
+              <DataTable.Cell>Monthly Payments</DataTable.Cell>
+              <DataTable.Cell numeric>
+                {dollarFormat.format(calculateResult.monthlyPayments)}
+              </DataTable.Cell>
+            </DataTable.Row>
+            <DataTable.Row>
+              <DataTable.Cell>Total Interest Paid</DataTable.Cell>
+              <DataTable.Cell numeric>
+                {dollarFormat.format(calculateResult.totalInterest)}
+              </DataTable.Cell>
+            </DataTable.Row>
+            <DataTable.Row>
+              <DataTable.Cell>Total Payments</DataTable.Cell>
+              <DataTable.Cell numeric>
+                {dollarFormat.format(calculateResult.totalPayment)}
+              </DataTable.Cell>
+            </DataTable.Row>
+          </DataTable>
+        </Card>
+      )}
+    </View>
   );
 };
 
