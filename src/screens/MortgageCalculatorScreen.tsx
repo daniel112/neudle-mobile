@@ -1,71 +1,69 @@
-import { FC } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { FC, useState } from "react";
 import {
   Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
+  View,
 } from "react-native";
-import { TextInput } from "react-native-paper";
 
 import React from "react";
-import { DollarInput } from "@/shared/components/DollarInput";
+import { InterestRatePreview } from "@/features/mortgageCalculator/InterestRatePreview";
+import { Calculator } from "@/features/mortgageCalculator/Calculator";
+import { CalculationResultProps } from "@/features/mortgageCalculator/types";
+import { Card, DataTable } from "react-native-paper";
 
+/**
+ * Composite component that displays the InterestRatePreview and Calculator components
+ */
 export const MortgageCalculatorScreen: FC = () => {
-  const { control } = useForm({
-    defaultValues: {
-      loanAmount: 0,
-      interestRate: 6.5,
-    },
+  const [calculateResult, setCalculateResult] =
+    useState<CalculationResultProps | null>(null);
+  const dollarFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
   });
-  // const onSubmit = (data) => {
-  //   console.log("Form Data:", data);
-  // };
 
   return (
     <TouchableWithoutFeedback
       style={styles.container}
       onPress={Keyboard.dismiss}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={20}
-        style={{ flex: 1 }}
-      >
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <Controller
-            name="loanAmount"
-            control={control}
-            render={({ field: { onChange, value, onBlur } }) => (
-              <DollarInput
-                label="Loan Amount"
-                onChangeValue={onChange}
-                value={value}
-                onBlur={onBlur}
-              />
-            )}
-          />
-
-          <Controller
-            control={control}
-            rules={{
-              maxLength: 100,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                label={"Interest Rate"}
-                placeholder="interest rate"
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value.toString()}
-              />
-            )}
-            name="interestRate"
-          />
-        </ScrollView>
-      </KeyboardAvoidingView>
+      <View style={styles.container}>
+        <InterestRatePreview />
+        <Calculator
+          onResult={(result) => {
+            setCalculateResult(result);
+          }}
+        />
+        {calculateResult && (
+          <Card style={{ marginBottom: 16 }}>
+            <DataTable>
+              <DataTable.Header>
+                <DataTable.Title>Category</DataTable.Title>
+                <DataTable.Title>Cost</DataTable.Title>
+              </DataTable.Header>
+              <DataTable.Row>
+                <DataTable.Cell>Monthly Payments</DataTable.Cell>
+                <DataTable.Cell>
+                  {dollarFormat.format(calculateResult.monthlyPayments)}
+                </DataTable.Cell>
+              </DataTable.Row>
+              <DataTable.Row>
+                <DataTable.Cell>Total Interest Paid</DataTable.Cell>
+                <DataTable.Cell>
+                  {dollarFormat.format(calculateResult.totalInterest)}
+                </DataTable.Cell>
+              </DataTable.Row>
+              <DataTable.Row>
+                <DataTable.Cell>Total Payments</DataTable.Cell>
+                <DataTable.Cell>
+                  {dollarFormat.format(calculateResult.totalPayment)}
+                </DataTable.Cell>
+              </DataTable.Row>
+            </DataTable>
+          </Card>
+        )}
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -74,5 +72,4 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollView: { gap: 16, paddingBottom: 20 },
 });
